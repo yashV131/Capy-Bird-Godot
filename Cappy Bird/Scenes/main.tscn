@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://usyjmsnd4in"]
+
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_3qv6p"]
+[ext_resource type="PackedScene" uid="uid://dkgqkca3w52jp" path="res://Scenes/pipes.tscn" id="2_os5qw"]
+[ext_resource type="PackedScene" uid="uid://d1grmx7qev7ww" path="res://Scenes/bird.tscn" id="2_x8xfy"]
+[ext_resource type="Texture2D" path="res://Trees in Texas Forest.png" id="3_wtiq7"]
+[ext_resource type="PackedScene" uid="uid://crfnlvr4lqog2" path="res://Scenes/ground.tscn" id="4_jrfa8"]
+[ext_resource type="PackedScene" path="res://game_over.tscn" id="6_r13uu"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_3qv6p")
+pipe_scene = ExtResource("2_os5qw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(961, 586)
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("3_wtiq7")
+
+[node name="Bird" parent="." instance=ExtResource("2_x8xfy")]
+
+[node name="Ground" parent="." instance=ExtResource("4_jrfa8")]
+z_index = 2
+position = Vector2(-1, 123)
+
+[node name="PipeTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="ScoreLabel" type="Label" parent="."]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -129.5
+offset_right = 129.5
+offset_bottom = 166.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.0470588, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "SCORE : 0"
+
+[node name="GameOver" parent="." instance=ExtResource("6_r13uu")]
+
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
+[connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
+[connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]

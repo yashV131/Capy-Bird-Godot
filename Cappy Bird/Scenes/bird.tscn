@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1grmx7qev7ww"]
+
+[ext_resource type="Script" path="res://Scenes/bird.gd" id="1_n6q2w"]
+[ext_resource type="Texture2D" path="res://Baby_Capybara-1.png" id="2_ielve"]
+[ext_resource type="Texture2D" path="res://Baby_Capybara-2.png" id="3_71kbo"]
+[ext_resource type="Texture2D" path="res://Baby_Capybara-3.png" id="4_spvah"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uk5nq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ielve")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_71kbo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_spvah")
+}],
+"loop": true,
+"name": &"Flying",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f3ni0"]
+radius = 32.0
+height = 106.0
+
+[node name="Bird" type="CharacterBody2D"]
+script = ExtResource("1_n6q2w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_uk5nq")
+animation = &"Flying"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 2)
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CapsuleShape2D_f3ni0")
